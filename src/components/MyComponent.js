@@ -3,12 +3,19 @@ import React from 'react'
 class MyComponent extends React.Component {
     state = {
         name: 'Phvster',
-        address: 'Hoi dan IT',
-        age: 26
+        address: 'Ha Noi',
+        age: 21
     }
-    handleClick(event) {
-        console.log("You clicked my button")
-        console.log(event.target)
+    handleClick = (event) => {
+        this.setState({
+            name: 'Oanh',
+            age: Math.floor((Math.random() * 100) + 1)
+        })
+        // this.setState({
+        //     age: Math.floor((Math.random() * 100) + 1)
+        // })
+        console.log("My name is ", this.state.name)
+        console.log("Age: ", this.state.age)
     }
     handleOnMouseOver(event) {
         console.log(event.pageX)
@@ -18,8 +25,7 @@ class MyComponent extends React.Component {
     render() {
         return (
             <div>
-                My name is {this.state.name} and I'm from {this.state.address}
-                <button onClick={this.handleClick}>Click me</button>
+                <button onClick={(event) => { this.handleClick(event) }}>=>Click me</button>
                 <button onMouseOver={this.handleOnMouseOver}>Hover me</button>
             </div>
         )
