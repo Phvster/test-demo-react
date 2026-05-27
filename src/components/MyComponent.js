@@ -1,33 +1,49 @@
 import React from 'react'
+import AddUserInfor from './AddUserInfor'
+import DisplayInfor from './DisplayInfor'
 
 class MyComponent extends React.Component {
     state = {
-        name: 'Phvster',
-        address: 'Ha Noi',
-        age: 21
-    }
-    handleClick = (event) => {
-        this.setState({
-            name: 'Oanh',
-            age: Math.floor((Math.random() * 100) + 1)
-        })
-        // this.setState({
-        //     age: Math.floor((Math.random() * 100) + 1)
-        // })
-        console.log("My name is ", this.state.name)
-        console.log("Age: ", this.state.age)
-    }
-    handleOnMouseOver(event) {
-        console.log(event.pageX)
+        listUsers: [
+            { id: 1, name: "Dao", age: "21" },
+            { id: 2, name: "Minh", age: "24" },
+            { id: 3, name: "Phuc", age: "22" },
+        ]
     }
 
-    //JSX
+
+    handleAddNewUser = (userObj) => {
+        this.setState({
+            // listUsers: [...this.state.listUsers, userObj],
+            listUsers: [userObj, ...this.state.listUsers]
+        })
+    }
+
+    handleDeleteUser = (userId) => {
+        let listUsersClone = this.state.listUsers
+        listUsersClone = listUsersClone.filter(item => item.id != userId)
+        this.setState({
+            listUsers: listUsersClone
+        })
+    }
+
     render() {
         return (
-            <div>
-                <button onClick={(event) => { this.handleClick(event) }}>=>Click me</button>
-                <button onMouseOver={this.handleOnMouseOver}>Hover me</button>
-            </div>
+            <>
+                <div className='a'>
+                    <AddUserInfor
+                        handleAddNewUser={this.handleAddNewUser}
+                    />
+                    <br></br>
+                    <DisplayInfor
+                        listUsers={this.state.listUsers}
+                        handleDeleteUser={this.handleDeleteUser}
+                    />
+                </div>
+                <div className='b'>
+
+                </div>
+            </>
         )
     }
 }
